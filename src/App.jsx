@@ -1,5 +1,4 @@
-import Editor from "./components/Editor"
-import PdfPane from "./components/PdfPane"
+import CvContainer from "./components/CvContainer"
 
 export default function App() {
 
@@ -8,13 +7,8 @@ export default function App() {
       <div className="title-container">
         <h1>CV Builder</h1>
       </div>
-      <div className="app-container">
-        <div className="editor-container">
-          <Editor />
-        </div>
-        <div className="cv-container">
-          <PdfPane />
-        </div>
+      <div>
+        <CvContainer />
       </div>
     </div>
   )
