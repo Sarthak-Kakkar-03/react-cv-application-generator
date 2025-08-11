@@ -20,9 +20,7 @@ export default function CvContainer() {
         []
     );
 
-    const [isEditingGeneral, setIsEditingGeneral] = useState(true);
-    const [isEditingEducation, setIsEditingEducation] = useState(true);
-    const [isEditingExperience, setIsEditingExperience] = useState(true);
+    const [isEditing, setIsEditing] = useState(true);
 
     function onGeneralChange(field, value) {
         setGeneral((prev) => {
@@ -32,24 +30,69 @@ export default function CvContainer() {
         });
     }
 
-    function onGeneralSubmit() {
-        setIsEditingGeneral(false);
+    function onSubmitAll() {
+        setIsEditing(false);
     }
 
-    function onGeneralEdit() {
-        setIsEditingGeneral(true);
+    function onEditAll() {
+        setIsEditing(true);
     }
 
+    function onEducationAdd(name, date, description) {
+        const widthId = {
+            id: crypto.randomUUID(),
+            name: name,
+            date: date,
+            description: description
+        }
+        setEducation((prev) => {
+            const newArray = [...prev];
+            newArray.push(widthId);
+            return newArray;
+        });
+    }
+
+    function onEducationUpdate(id, field, value) {
+        setEducation((prev) => {
+            const prevCopy = prev.map((e) => {
+                if (e.id === id) {
+                    const copy = {...e};
+                    copy[field] = value;
+                    return copy
+                } else {
+                    return e;
+                }
+            });
+            return prevCopy;
+        });
+    }
+
+    function onEducationDelete(id) {
+        setEducation((prev) => {
+            const newArray = prev.filter((e) => {
+                if (e.id !== id) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            return newArray;
+        });
+    }
 
     return (
         <div className="app-container">
             <div className="editor-container">
             <Editor 
             general = {general}
-            isEditingGeneral = {isEditingGeneral}
+            isEditing = {isEditing}
             onGeneralChange={onGeneralChange}
-            onGeneralSubmit={onGeneralSubmit}
-            onGeneralEdit={onGeneralEdit}
+            onSubmitAll={onSubmitAll}
+            onEditAll={onEditAll}
+            education={education}
+            onEducationAdd={onEducationAdd}
+            onEducationUpdate={onEducationUpdate}
+            onEducationDelete={onEducationDelete}
             />
             </div>
             <div className="cv-container">
