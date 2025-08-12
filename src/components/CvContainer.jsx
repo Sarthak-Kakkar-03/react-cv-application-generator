@@ -98,6 +98,18 @@ export default function CvContainer() {
             <div className="cv-container">
             <PdfPane 
             general = {general}
+            education={
+                Array.isArray(education)
+                    ? education
+                        .filter(Boolean)
+                        .map((item) => ({
+                            id: String(item?.id ?? ""),
+                            name: String(item?.name ?? ""),
+                            date: String(item?.date ?? ""),
+                            description: String(item?.description ?? "")
+                        }))
+                    : []
+            }
             />
             </div>
         </div>
